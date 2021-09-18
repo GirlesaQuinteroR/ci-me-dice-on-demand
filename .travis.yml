@@ -4,10 +4,19 @@ jobs:
   include:
     - stage: test
       script: python3 -m pytest -v tests/test_dice.py
-    - stage: build
+    - stage: Deploy to stage
       script: skip
       deploy:
         provider: heroku
         api_key: $HEROKU_AUTH_TOKEN
         app: ci-session2-gqr-stg
-        
+        on:
+          branch: main
+    - stage: Deploy to production
+      script: skip
+      deploy:
+        provider: heroku
+        api_key: $HEROKU_AUTH_TOKEN
+        app: ci-session2-gqr
+        on:
+          branch: main
