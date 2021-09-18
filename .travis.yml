@@ -2,21 +2,24 @@ language: python
 install: pip install -r requirements.txt
 jobs:
   include:
-    - stage: test
-      script: python3 -m pytest -v tests/test_dice.py
-    - stage: Deploy to stage
-      script: skip
-      deploy:
-        provider: heroku
-        api_key: $HEROKU_AUTH_TOKEN
-        app: ci-session2-gqr-stg
-        on:
-          branch: main
-    - stage: Deploy to production
-      script: skip
-      deploy:
-        provider: heroku
-        api_key: $HEROKU_AUTH_TOKEN
-        app: ci-session2-gqr
-        on:
-          branch: main
+  - stage: test
+    script: python3 -m pytest -v tests/test_dice.py
+  - stage: Deploy to stage
+    script: skip
+    deploy:
+      provider: heroku
+      api_key: "$HEROKU_AUTH_TOKEN"
+      app: ci-session2-gqr-stg
+      on:
+        branch: main
+  - stage: Deploy to production
+    script: skip
+    deploy:
+      provider: heroku
+      api_key: "$HEROKU_AUTH_TOKEN"
+      app: ci-session2-gqr
+      on:
+        branch: main
+notifications:
+  slack:
+    secure: O9+qqX4ZvtbPx4KRaEHSf7vkgaC4QEjIgCpGmN9JTg5+z29g7/+VLGoAx2+2bsoInf5zuh8erAAqaG2Rr8Ys419XcJNZI9Himlin4oXNjb+3wdZkcMYN4Lq01mWG0mh4w+7p4aIPe+ZWKwAxP76wdQhEIzonSP2XPkcZceN/WfFS9B2HZ5UoubfmONDiWzq+pehQRI2Mngf1YsX+u98YimfSuv/7MKwuHNoYPl7ZdDvK3PVl78meLIzXWJMwEkTcZTukbZDu/gaHexug+ZW98uru3yh4QNE9q8YtkgamCnDZwQWVG8t+AkuSQpKKdS1hUumiX+4x8o1pQgtiTImS0wlauDttrox5se7B87GGSlasto96IxehSHGVnXMRWepanzST3gLYBC7RlnficYdvQEy2bRLWJZkh/GPJIv8dyY3u5NhJE8HqZcZwYeZHkQ27alpAME6ZHpD7KkrbWS7tswvcbfDYVh/BDw/zMvzx2iFr1el5r1rXlnLX7U5SBboXC6KZL/1Arwg9mpOTaZAUGsOf4T28g/YxzIAS+SlF3Uq8CttYNjz+uCxiEtKMlyIImkeGrILe6VF9GuASRpQ7TpT51zFqEhERlQ6P9UzW3R4heAOS0xaEean1MCipOYJAENMnKjw52hHO0gcmCWdQlqPho4ZAlm1CpEtbfGVs7JE=
